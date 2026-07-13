@@ -1,0 +1,1 @@
+{"name":"Local: Round Trip","url":"d:\\lamhoccode\\cses\\graph algorithms\\Round Trip.cpp","tests":[{"id":1783353790414,"input":"5 6\n1 3\n1 2\n5 3\n1 5\n2 4\n4 5\n","output":""}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"d:\\lamhoccode\\cses\\graph algorithms\\Round Trip.cpp","group":"local","local":true}

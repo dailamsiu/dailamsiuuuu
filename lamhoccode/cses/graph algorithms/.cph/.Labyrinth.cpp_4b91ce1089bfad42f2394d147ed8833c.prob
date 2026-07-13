@@ -1,0 +1,1 @@
+{"name":"Local: Labyrinth","url":"d:\\lamhoccode\\cses\\graph algorithms\\Labyrinth.cpp","tests":[{"id":1783325243988,"input":"5 8\n########\n#.A#...#\n#.##.#B#\n#......#\n########\n","output":""}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"d:\\lamhoccode\\cses\\graph algorithms\\Labyrinth.cpp","group":"local","local":true}

@@ -1,0 +1,47 @@
+A.subtask 1
+f[i] vẻ đẹp lớn nhất của dãy 1...i với i là viên bi cuối được chọn
+f[j]=v[j]*b
+f[j]=max(f[j],f[i]+c(i,j))
+c[i,j] vẻ đẹp tăng khi thêm j vào dãy, i là phần tử cuối
+c[i,j]=v[j]*a nếu ci=cj
+      =v[j]*b nếu ci!=cj;
+sub2
+cùng màu: f[i]max,c[j]=c[i]
+khác màu: f[i]max,c[i]!=c[j]
+g[x]=f[i]max c[i]=x
+set: pair: first: g[x]
+	   second:x
+set đủ các màu
+- xóa c[j] khỏi set
+- lấy g[x] max, tính f[i]
+- thêm cợ] vào set
+sub3:
+ duy trì 2 màu phân biệt g[x] max
+			(x1,x2) g[x1],g[x2]
+c[j]=c1=>c2
+c[j]=c2=>c1
+B.subtask 1:backtrack
+  subtask 2:
+f[x1][y1][x2][y2]: lợi nhuận lớn nhất khi đạt được khi di chuyển 2 máy cùng lúc với máy đầu tiên (x1,y1) và máy thứ hai (x2,y2)
+-> f[x1'][y1'][x2'][y2']=max(f[x1][y1][x2][y2]+ (a[x1'][y1']+a[x2'][y2'] nếu x1',y1'!=x2',y2'/a[x1'][y1'] nếu =)
+sub3: chỉ lưu x1,y1,x2;
+=>y2=x1+y1-x2;
+C.
+subtask1: backtrack 2^n trạng thái chọn hoặc không
+với mỗi trạng thái: 
+- đếm số chai sử dụng: số bit 1
+- tính tổng dung tích >= tổng nước
+-tổng lượng nước của những chai không chọn = thời gian nhỏ nhất
+subtask2:
++ tổng dung tích
++ số chai
++ tổng lượng nước
++ tổng lượng nước của những chai được chọn lớn nhất
+f[i][cnt][v]: tổng lượng nước lớn nhất của những chai được chọn khi xét đến chai i và đã chọn cnt chai và có tổng dung tích là v 
+chuyển trạng thái: chọn hoặc không
+chọn f[i+1][cnt+1][v+b[i+1]]-> f[i][cnt][v]+a[i+1]
+không chọn f[i+1][cnt][v]->f[i][cnt][v]+a[i+1]
+ans:cnt nhỏ nhất : f[n][cntư[v] lớn nhất sao cho v > tổng lượng nước:
+cnt=số chai
+thời gian=tổng nước - f[n][cnt][v]
+f[i][v]: số chai nhỏ nhất mà có lượng nước lớn nhất

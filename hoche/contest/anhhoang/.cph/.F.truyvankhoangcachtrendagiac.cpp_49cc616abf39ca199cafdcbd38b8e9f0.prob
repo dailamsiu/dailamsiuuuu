@@ -1,0 +1,1 @@
+{"name":"Local: F","url":"d:\\hoche\\contest\\anhhoang\\F.truyvankhoangcachtrendagiac.cpp","tests":[{"id":1782785274521,"input":"5 4\n0 0\n2 0\n2 2\n0 2\n1 2 1 0\n0 2 1 0\n1 0 1 2\n2 1 0 2\n0 0 0 2\n","output":""}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"d:\\hoche\\contest\\anhhoang\\F.truyvankhoangcachtrendagiac.cpp","group":"local","local":true}
