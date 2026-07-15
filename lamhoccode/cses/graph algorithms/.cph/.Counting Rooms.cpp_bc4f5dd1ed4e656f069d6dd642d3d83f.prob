@@ -1,1 +1,0 @@
-{"name":"Local: Counting Rooms","url":"d:\\lamhoccode\\cses\\graph algorithms\\Counting Rooms.cpp","tests":[{"id":1783240149871,"input":"5 8\n########\n#..#...#\n####.#.#\n#..#...#\n########\n","output":""}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"d:\\lamhoccode\\cses\\graph algorithms\\Counting Rooms.cpp","group":"local","local":true}
