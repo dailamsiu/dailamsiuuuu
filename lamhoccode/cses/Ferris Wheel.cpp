@@ -24,14 +24,14 @@ void solve() {
     for(int i=1;i<=n;i++)   cin>>a[i];
     sort(a+1,a+n+1);
     int i=1,j=n,d=0;
-    while(i<j)
+    while(i<=j)
     {
         if(a[i]+a[j]<=x)
         {
-            d++;i++;j++;
+            d++;i++;j--;
         }
-        else if(a[i]+a[j]>x)    j--;
-        else    i++;
+        else if(a[i]+a[j]>x)    j--,d++;
+        
     }
     cout<<d;
 }
