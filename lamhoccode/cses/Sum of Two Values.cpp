@@ -31,12 +31,12 @@ void solve() {
     {
         if(a[i].fi+a[j].fi==x)
         {
-            cout<<a[i].second<<' '<<a[j].second;
+            cout<<a[i].se<<' '<<a[j].se;return;
         }
         else if(a[i].fi+a[j].fi>x)  j--;
         else    i++;
     }
-    
+    cout<<"IMPOSSIBLE";
 
 }
 dailamsiu() {
