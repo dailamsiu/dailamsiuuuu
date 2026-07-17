@@ -33,7 +33,7 @@ void solve() {
     {
         cin>>b[i];
         auto it=lower_bound(a.begin(),a.end(),b[i])-a.begin();
-        cout<<b[i]-it;
+        cout<<b[i]-it-1<<' ';
     }
 }
 dailamsiu() {

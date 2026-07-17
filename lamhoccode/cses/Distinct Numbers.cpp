@@ -20,7 +20,7 @@ const int N = 1e6 + 5;
 const int mod = 1e9+7;
 int n,a[N];
 void solve() {
-    cin>>n;unordered_map<int,int>mp;
+    cin>>n;map<int,int>mp;
 
     for(int i=1;i<=n;i++)   cin>>a[i],mp[a[i]]++;
     cout<<mp.size();

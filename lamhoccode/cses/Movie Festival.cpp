@@ -35,10 +35,11 @@ void solve()
          {
     if(x.second==y.second)  return x.first<y.first;
     return x.second<y.second; });
-    int d=1;
+    int d=1,pre=a[1].second;
     for(int i=2;i<=n;i++)
     {
-        if(a[i].first>=a[i-1].second)   d++;
+        if(a[i].first>=pre)   
+        {d++;pre=a[i].second;}
     }
     cout<<d;
 }
