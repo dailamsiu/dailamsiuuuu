@@ -29,8 +29,8 @@ void solve() {
     for(int i=1;i<=m;i++)
     {
         cin>>b[i];
-        auto it=lower_bound(a+1,a+n+1,b[i]);
-        cout<<b[i]-(it-a-1)-1;
+        auto it=lower_bound(a+1,a+n+1,b[i])-a;
+        cout<<it<<'\n';
     }
 }
 dailamsiu() {
