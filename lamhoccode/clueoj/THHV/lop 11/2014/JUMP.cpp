@@ -25,11 +25,21 @@ void solve() {
     mx[n]=a[n];
     for(int i=n-1;i>=1;i--) mx[i]=max(mx[i+1],a[i]);
     int ans=0;
-    for(int i=1;i<=n;i++)
+    for(int i=1;i<=n-1;i++)
     {
-        auto it=upper_bound(mx+i+1,mx+n+1,a[i]+p)-mx;
-        it--;
-        ans=max(ans,it-i+1);
+        int l=i+1,r=n,res=-1;
+        while(l<=r)
+        {
+            int mid=(l+r)/2;
+            if(mx[mid]>=a[i]+p)
+            {
+                res=mid;l=mid+1;
+            }
+            else
+            r=mid-1;
+        }
+        if(res!=-1)
+        ans=max(ans,res-i);
     }
     cout<<ans;
 }
