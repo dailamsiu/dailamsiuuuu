@@ -25,16 +25,17 @@ void solve() {
     if(k>s.size()*(1<<n))
     {
         cout<<-1;return;
-    }
+    }int nguyen=k/s.size();
     if(k%s.size()==0)
     {
-        int nguyen=k/s.size();
+        
         if(nguyen&1)    cout<<s[s.size()-1];
         else    cout<<s[0];
     }
     else
     {
-        cout<<s[k%(s.size())];
+        if(nguyen&1)    cout<<s[s.size()-k%s.size()];
+        else    cout<<s[k%s.size()-1];
     }
 }
 dailamsiu() {
