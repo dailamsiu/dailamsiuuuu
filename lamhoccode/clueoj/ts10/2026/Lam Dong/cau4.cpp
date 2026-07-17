@@ -18,19 +18,22 @@ mt19937 rd(chrono::steady_clock::now().time_since_epoch().count());
 int rand(int l, int r) { assert(l <= r); return uniform_int_distribution<int>(l, r)(rd); }
 const int N = 1e6 + 5;
 const int mod = 1e9+7;
-int n,m,a[N],b[N];
+int n,m,b[N];
+vector<int>a;
 void solve() {
     cin>>n>>m;
+    unordered_map<int,int>mp;
     for(int i=1;i<=n;i++)
     {
-        cin>>a[i];
+        int x;cin>>x;mp[x]++;
+        if(mp[x]==1)    a.push_back(x);
     }
-    sort(a+1,a+n+1);
+    sort(a.begin(),a.end());
     for(int i=1;i<=m;i++)
     {
         cin>>b[i];
-        auto it=lower_bound(a+1,a+n+1,b[i])-a;
-        cout<<it<<'\n';
+        auto it=lower_bound(a.begin(),a.end(),b[i])-a.begin();
+        cout<<b[i]-it;
     }
 }
 dailamsiu() {
