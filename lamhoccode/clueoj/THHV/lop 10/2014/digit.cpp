@@ -18,19 +18,24 @@ mt19937 rd(chrono::steady_clock::now().time_since_epoch().count());
 int rand(int l, int r) { assert(l <= r); return uniform_int_distribution<int>(l, r)(rd); }
 const int N = 1e6 + 5;
 const int mod = 1e9+7;
-int n,a[N],mn[N];
+string s;
+int n,k;
 void solve() {
-    cin>>n;
-    for(int i=1;i<=n;i++)
+    cin>>s>>n>>k;
+    if(k>s.size()*(1<<n))
     {
-        cin>>a[i];
+        cout<<-1;return;
     }
-    mn[1]=a[1];
-    for(int i=2;i<=n;i++)
+    if(k%s.size()==0)
     {
-        mn[i]=min(mn[i-1],a[i]);
+        int nguyen=k/s.size();
+        if(nguyen&1)    cout<<s[s.size()-1];
+        else    cout<<s[0];
     }
-    
+    else
+    {
+        cout<<s[k%(s.size())];
+    }
 }
 dailamsiu() {
     if (fopen(task".inp", "r")) { freopen(task".inp", "r", stdin); freopen(task".out", "w", stdout); }
