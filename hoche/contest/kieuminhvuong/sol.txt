@@ -1,0 +1,15 @@
+bài 1:
+đồ thị n đỉnh, n^2 cạnh, n ngày, mỗi ngày xóa 1 đỉnh-> tính tổng khoảng cách dij trong tập đỉnh còn lại
+2 sub: sub1: n<=50
+	sub2:n<=500
+sub1:
+floyd
+sub2: nhận xét
+từ 1 đỉnh trung gian chèn vào đường đi từ  u đến v xem cho k vào giữa có giảm được đường đi ngắn nhất không
+-> floyd chỉ thêm đỉnh k vào không xóa đi nên ta sẽ xử lí offline
+-> làm ngược lại từ cuối về thay vì xóa đi thì ta sẽ thêm đỉnh dần dần
+ngày thứ i cho x vào tập rồi tính -> chỉ cần 1 vòng for u
+bài 2: 
+đường đi i1,i2,...,ik
+chi phí: wi1,i2+...+wik-1,ik+min(ai1,ai2,...,aik)
+s->t
