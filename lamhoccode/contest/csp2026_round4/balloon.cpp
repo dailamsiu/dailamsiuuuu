@@ -44,22 +44,18 @@ void solve() {
                 q.push({dist[v],v});
             }
         }
-    }
-    queue<int>qu;qu.push(0);
-    while(!qu.empty())
+    }    int tong=0;
+
+    for(int u=1;u<=n;u++)
     {
-        auto u=qu.front();qu.pop();
+        int mx=0;
         for(auto [v,w]:g[u])
         {
-            if(dist[v]==dist[u]+w)
-            {
-                maxweight[v]=max(maxweight[v],w);
-                qu.push(v);
-            }
+            if(dist[u]==dist[v]+w)
+            mx=max(mx,w);
         }
+        tong+=mx;
     }
-    int tong=0;
-    for(int i=1;i<=n;i++)   tong+=maxweight[i];
     cout<<m-n<<' '<<tong;
 }
 dailamsiu() {
