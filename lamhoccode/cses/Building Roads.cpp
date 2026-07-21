@@ -34,7 +34,7 @@ void dfs(int v)
 }
 void solve() {
     cin>>n>>m;
-    for(int i=1;i<=n;i++)
+    for(int i=1;i<=m;i++)
     {
         int a,b;cin>>a>>b;
         g[a].push_back(b);
@@ -49,8 +49,16 @@ void solve() {
             dfs(i);
         }
     }
+    if(road.size()==1)  
+    {
+        cout<<0;return;
+    }
     cout<<road.size()-1<<'\n';
-    for(auto x:road)    cout<<x<<' ';
+    for(int i=0;i<road.size()-1;i++)
+    {
+        cout<<road[i]<<' '<<road[i+1]<<'\n';
+        
+    }
 }
 dailamsiu() {
     if (fopen(task".inp", "r")) { freopen(task".inp", "r", stdin); freopen(task".out", "w", stdout); }
