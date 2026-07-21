@@ -45,8 +45,7 @@ void solve() {
             }
         }
     }    int tong=0;
-
-    for(int u=1;u<=n;u++)
+    for(int u=0;u<=n;u++)
     {
         int mx=0;
         for(auto [v,w]:g[u])
