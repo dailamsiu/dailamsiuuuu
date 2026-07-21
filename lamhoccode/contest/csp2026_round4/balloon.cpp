@@ -16,7 +16,7 @@
 using namespace std;
 mt19937 rd(chrono::steady_clock::now().time_since_epoch().count());
 int rand(int l, int r) { assert(l <= r); return uniform_int_distribution<int>(l, r)(rd); }
-const int N = 1e6 + 5;
+const int N = 1e6 + 5;  
 const int mod = 1e9+7;
 int m,n,maxweight[N];
 vector<pii>g[N];
