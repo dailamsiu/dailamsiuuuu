@@ -28,7 +28,7 @@ void solve() {
         pos[a[i]]=i;
     }
     int ans=0;
-    for(int i=1;i<=2*n;i++)
+    for(int i=1;i<=n;i++)
     {
         if(pos[i]==0)   continue;
         for(int j=i+1;i*j<=2*n;j++)
