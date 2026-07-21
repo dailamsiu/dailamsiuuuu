@@ -28,24 +28,24 @@ void solve() {
         pos[a[i]]=i;
     }
      int ans=0;
-    // for(int i=1;i<=n;i++)
-    // {
-    //     if(pos[i]==0)   continue;
-    //     for(int j=i+1;i*j<=2*n;j++)
-    //     {
-    //         if(pos[j]==0)   continue;
-    //         if(i*j==pos[i]+pos[j])  ans++;
-    //     }
-    // }
-    // cout<<ans<<'\n';
     for(int i=1;i<=n;i++)
     {
-        for(int j=i+1;j<=n;j++)
+        if(pos[i]==0)   continue;
+        for(int j=i+1;i*j<=2*n;j++)
         {
-            if(a[i]*a[j]==i+j)  ans++;
+            if(pos[j]==0)   continue;
+            if(i*j==pos[i]+pos[j])  ans++;
         }
     }
-    cout<<ans;
+    cout<<ans<<'\n';
+    // for(int i=1;i<=n;i++)
+    // {
+    //     for(int j=i+1;j<=n;j++)
+    //     {
+    //         if(a[i]*a[j]==i+j)  ans++;
+    //     }
+    // }
+    // cout<<ans;
 }
 dailamsiu() {
     if (fopen(task".inp", "r")) { freopen(task".inp", "r", stdin); freopen(task".out", "w", stdout); }
