@@ -1,0 +1,1 @@
+{"name":"Local: justall","url":"c:\\hellook\\dailamsiuuuu\\dailamsiuuuu\\lamhoccode\\dpbitmask\\justall.cpp","tests":[{"id":1784708011269,"input":"4\n1 2 3 4\n2 4 3 4","output":""}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"c:\\hellook\\dailamsiuuuu\\dailamsiuuuu\\lamhoccode\\dpbitmask\\justall.cpp","group":"local","local":true}
