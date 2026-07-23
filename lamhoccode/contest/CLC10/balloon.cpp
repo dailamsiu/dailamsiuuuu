@@ -11,54 +11,51 @@
 #define bit(x, i) ((x >> i) & 1)
 #define FOR(i, a, b) for (int i = (a); i <= (b); ++i)
 #define FORD(i, a, b) for (int i = (a); i >= (b); --i)
-#define task "test"
+#define task "balloon"
 #define dailamsiu main
 using namespace std;
 mt19937 rd(chrono::steady_clock::now().time_since_epoch().count());
 int rand(int l, int r) { assert(l <= r); return uniform_int_distribution<int>(l, r)(rd); }
-const int N = 1e6 + 5;
+const int N = 1e6 + 5;  
 const int mod = 1e9+7;
-int n,m;
-vector<int>g[N];
-int vis[N];
-void dfs(int v)
-{
-    vis[v]=1;
-    for(auto u:g[v])
-    {
-        if(!vis[u])
-        {
-            dfs(u);
-        }
-    }
-}
+int m,n,maxweight[N];
+vector<pii>g[N];
 void solve() {
     cin>>n>>m;
     for(int i=1;i<=m;i++)
     {
-        int a,b;cin>>a>>b;
-        g[a].push_back(b);
-        g[b].push_back(a);
+        int u,v,w;cin>>u>>v>>w;
+        g[u].push_back({v,w});
+        g[v].push_back({u,w});
     }
-    vector<int>road;
-    for(int i=1;i<=n;i++)
+    priority_queue<pii,vector<pii>,greater<pii>>q;
+    q.push({0LL,0LL});
+    vector<int>dist(n+1,1e18);
+    dist[0]=0;
+    while(!q.empty())
     {
-        if(!vis[i])
+        auto [dicku,u]=q.top();q.pop();
+        if(dicku!=dist[u])  continue;
+        for(auto [v,w]:g[u])
         {
-            road.push_back(i);
-            dfs(i);
+            if(dist[v]>dist[u]+w)
+            {
+                dist[v]=dist[u]+w;
+                q.push({dist[v],v});
+            }
         }
-    }
-    if(road.size()==1)  
+    }    int tong=0;
+    for(int u=0;u<=n;u++)
     {
-        cout<<0;return;
+        int mx=0;
+        for(auto [v,w]:g[u])
+        {
+            if(dist[u]==dist[v]+w)
+            mx=max(mx,w);
+        }
+        tong+=mx;
     }
-    cout<<road.size()-1<<'\n';
-    for(int i=0;i<road.size()-1;i++)
-    {
-        cout<<road[i]<<' '<<road[i+1]<<'\n';
-        
-    }
+    cout<<m-n<<' '<<tong;
 }
 dailamsiu() {
     if (fopen(task".inp", "r")) { freopen(task".inp", "r", stdin); freopen(task".out", "w", stdout); }
