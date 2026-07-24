@@ -11,7 +11,7 @@
 #define bit(x, i) ((x >> i) & 1)
 #define FOR(i, a, b) for (int i = (a); i <= (b); ++i)
 #define FORD(i, a, b) for (int i = (a); i >= (b); --i)
-#define task "test"
+#define task "tet"
 #define dailamsiu main
 using namespace std;
 mt19937 rd(chrono::steady_clock::now().time_since_epoch().count());
