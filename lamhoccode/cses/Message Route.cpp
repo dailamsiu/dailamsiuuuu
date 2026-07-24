@@ -11,45 +11,53 @@
 #define bit(x, i) ((x >> i) & 1)
 #define FOR(i, a, b) for (int i = (a); i <= (b); ++i)
 #define FORD(i, a, b) for (int i = (a); i >= (b); --i)
-#define task "MIGU"
+#define task "test"
 #define dailamsiu main
 using namespace std;
 mt19937 rd(chrono::steady_clock::now().time_since_epoch().count());
 int rand(int l, int r) { assert(l <= r); return uniform_int_distribution<int>(l, r)(rd); }
 const int N = 1e6 + 5;
 const int mod = 1e9+7;
-int n,a[N],pos[N];
+int n,m,vis[N],par[N];
+vector<int>g[N];
 void solve() {
-    memset(pos,0,sizeof(pos));
-    cin>>n;
-    for(int i=1;i<=n;i++)
+    cin>>n>>m;
+    for(int i=1;i<=m;i++)
     {
-        cin>>a[i];
-        pos[a[i]]=i;
+        int a,b;cin>>a>>b;
+        g[a].push_back(b);
+        g[b].push_back(a);
     }
-     int ans=0;
-    for(int i=1;i<=n;i++)
+    queue<int>q;q.push(1);vis[1]=1;
+    while(!q.empty())
     {
-        if(pos[i]==0)   continue;
-        for(int j=i+1;i*j<=2*n;j++)
+        auto u=q.front();q.pop();
+        for(auto v:g[u])
         {
-            if(pos[j]==0)   continue;
-            if(i*j==pos[i]+pos[j])  ans++;
+            if(!vis[v])
+            {
+                vis[v]=1;
+                q.push(v);
+                par[v]=u;
+            }
         }
     }
-    cout<<ans<<'\n';
-    // for(int i=1;i<=n;i++)
-    // {
-    //     for(int j=i+1;j<=n;j++)
-    //     {
-    //         if(a[i]*a[j]==i+j)  ans++;
-    //     }
-    // }
-    // cout<<ans;
+    vector<int>path;
+    for(int cur=n;cur!=0;cur=par[cur])
+    {
+        path.push_back(cur);
+    }
+    if(!vis[n]) cout<<"IMPOSSIBLE";
+    else
+    {
+        cout<<path.size()<<'\n';
+        reverse(path.begin(),path.end());
+        for(auto x:path)    cout<<x<<' ';
+    }
 }
 dailamsiu() {
     if (fopen(task".inp", "r")) { freopen(task".inp", "r", stdin); freopen(task".out", "w", stdout); }
     ios::sync_with_stdio(0); cin.tie(0);
-    int ntest = 1; cin >> ntest;
+    int ntest = 1; //cin >> ntest;
     while (ntest--) solve();
 }
