@@ -11,45 +11,48 @@
 #define bit(x, i) ((x >> i) & 1)
 #define FOR(i, a, b) for (int i = (a); i <= (b); ++i)
 #define FORD(i, a, b) for (int i = (a); i >= (b); --i)
-#define task "MIGU"
+#define task "test"
 #define dailamsiu main
 using namespace std;
 mt19937 rd(chrono::steady_clock::now().time_since_epoch().count());
 int rand(int l, int r) { assert(l <= r); return uniform_int_distribution<int>(l, r)(rd); }
 const int N = 1e6 + 5;
 const int mod = 1e9+7;
-int n,a[N],pos[N];
-void solve() {
-    memset(pos,0,sizeof(pos));
-    cin>>n;
-    for(int i=1;i<=n;i++)
+int dd[20][20];
+int n=8;
+bool check(vector<int>&a)
+{
+    int d1[20]={0},d2[20]={0};
+    for(int i=0;i<a.size();i++)
     {
-        cin>>a[i];
-        pos[a[i]]=i;
+        int x=i,y=a[i];
+        int l=x-y+n,r=x+y;
+        if(d1[l]||d2[r]||dd[x][y])  return 0;
+        d1[l]=1,d2[r]=1;
     }
-     int ans=0;
-    for(int i=1;i<=n;i++)
+    return 1;
+}
+void solve() {
+    for(int i=0;i<8;i++)
     {
-        if(pos[i]==0)   continue;
-        for(int j=i+1;i*j<=2*n;j++)
+        for(int j=0;j<8;j++)
         {
-            if(pos[j]==0)   continue;
-            if(i*j==pos[i]+pos[j])  ans++;
+            char c;cin>>c;
+            if(c=='*')  dd[i][j]=1;
         }
     }
-    cout<<ans<<'\n';
-    // for(int i=1;i<=n;i++)
-    // {
-    //     for(int j=i+1;j<=n;j++)
-    //     {
-    //         if(a[i]*a[j]==i+j)  ans++;
-    //     }
-    // }
-    // cout<<ans;
+    vector<int>a;
+    int ans=0;
+    for(int i=0;i<8;i++)    a.push_back(i);
+    do
+    {
+        ans+=check(a);
+    } while (next_permutation(a.begin(),a.end()));
+    cout<<ans;
 }
 dailamsiu() {
     if (fopen(task".inp", "r")) { freopen(task".inp", "r", stdin); freopen(task".out", "w", stdout); }
     ios::sync_with_stdio(0); cin.tie(0);
-    int ntest = 1; cin >> ntest;
+    int ntest = 1; //cin >> ntest;
     while (ntest--) solve();
 }
