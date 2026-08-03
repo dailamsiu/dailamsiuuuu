@@ -16,15 +16,34 @@
 using namespace std;
 mt19937 rd(chrono::steady_clock::now().time_since_epoch().count());
 int rand(int l, int r) { assert(l <= r); return uniform_int_distribution<int>(l, r)(rd); }
-const int N = 1e5 + 5;
+const int N = 1e6 + 5;
 const int mod = 1e9+7;
-int n,m,a[N],dp[N][105];
+int n,pre[N],mnr[N],mndif[N];
+struct node
+{
+    int a,b,d;
+}p[N];
 void solve() {
-    cin>>n>>m;
-    for(int i=1;i<=n;i++)   cin>>a[i];
+    cin>>n;
     for(int i=1;i<=n;i++)
     {
-        if(a[i]!=0)dp[i][]=dp[i-1]
+        cin>>p[i].a>>p[i].b;
+        p[i].d=p[i].a-p[i].b;
+    }
+    sort(p+1,p+n+1,[](node x,node y){
+        return x.b<y.b;
+    });
+    for(int i=1;i<=n;i++)
+    {
+        pre[i]=pre[i-1]+p[i].b;
+        mndif[i]=(i==1?p[i].d:min(mndif[i-1],p[i].d));
+    }
+    mnr[n]=p[n].a;
+    for(int i=n-1;i>=1;i--) mnr[i]=min(mnr[i+1],p[i].a);
+    for(int k=1;k<=n;k++)
+    {
+        int case1=pre[k]+mndif[k],case2=pre[k-1]+mnr[k];
+        cout<<min(case1,case2)<<'\n';
     }
 }
 dailamsiu() {
