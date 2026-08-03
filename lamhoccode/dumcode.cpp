@@ -18,39 +18,61 @@ mt19937 rd(chrono::steady_clock::now().time_since_epoch().count());
 int rand(int l, int r) { assert(l <= r); return uniform_int_distribution<int>(l, r)(rd); }
 const int N = 1e6 + 5;
 const int mod = 1e9+7;
-int binpow(int a,int b,int c)
+int n,c;
+struct node
 {
-    int res=1;
-    while(b)
+    int lazy,sum;
+}st[4*N];
+void push(int id,int l,int r)
+{
+    if(st[id].lazy)
     {
-        if(b&1)
-        {
-            res*=a;
-            res%=c;
-        }
-        a*=a;a%=c;b/=2;
+        int mid=(l+r)/2;
+        st[id*2].sum+=st[id].lazy*(mid-l+1);
+        st[id*2+1].sum+=st[id].lazy*(r-mid);
+        st[id*2].lazy+=st[id].lazy;
+        st[id*2+1].lazy+=st[id].lazy;
+        st[id].lazy=0;
     }
-    return res;
 }
-int nghichdao(int n)
+void upd(int id,int l,int r,int u,int v,int val)
 {
-    return binpow(n,mod-2,mod);
+    if(v<l||r<u)    return;
+    else if(u<=l&&r<=v)
+    {
+        st[id].lazy+=val;st[id].sum+=val*(r-l+1);
+        return;
+    }
+    int mid=(l+r)/2;
+    push(id,l,r);
+    upd(id*2,l,mid,u,v,val);
+    upd(id*2+1,mid+1,r,u,v,val);
+    st[id].sum=st[id*2].sum+st[id*2+1].sum;
 }
-int n,fact[N],revfact[N];
+int get(int id,int l,int r,int u,int v)
+{
+    if(v<l||r<u)    return 0;
+    else if(u<=l&&r<=v) return st[id].sum;
+    push(id,l,r);
+    int mid=(l+r)/2;
+    return get(id*2,l,mid,u,v)+get(id*2+1,mid+1,r,u,v);
+}
 void solve() {
-    cin>>n;
-    fact[0]=1;
-    for(int i=1;i<=1e6;i++)
+    cin>>n>>c;
+    while(c--)
     {
-        fact[i]=(fact[i-1]*i)%mod;
+        int t;cin>>t;
+        if(t==0)
+        {
+            int u,v,val;cin>>u>>v>>val;
+            upd(1,1,n,u,v,val);
+        }
+        else
+        {
+            int u,v;cin>>u>>v;
+            cout<<get(1,1,n,u,v)<<'\n';
+        }
     }
-    for(int i=1;i<=n;i++)
-    {
-        int a,b;cin>>a>>b;
-        int tuso=fact[a],mauso=nghichdao(fact[b]),mauso2=nghichdao(fact[a-b]);
-        cout<<(tuso*mauso)%mod*mauso2%mod<<'\n';
-    }
-
 }
 dailamsiu() {
     if (fopen(task".inp", "r")) { freopen(task".inp", "r", stdin); freopen(task".out", "w", stdout); }
