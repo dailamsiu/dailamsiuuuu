@@ -16,16 +16,39 @@
 using namespace std;
 mt19937 rd(chrono::steady_clock::now().time_since_epoch().count());
 int rand(int l, int r) { assert(l <= r); return uniform_int_distribution<int>(l, r)(rd); }
-const int N = 1e6 + 5;
+const int N = 2e5 + 5;
 const int mod = 1e9+7;
-int n,a[N];
+int n,h[N],a[N],dp[N],st[4*N];
+void upd(int id,int l,int r,int pos,int val)
+{
+    if(l==r)
+    {
+        st[id]=val;
+        return;
+    }
+    int mid=(l+r)/2;
+    if(pos<=mid)    upd(id*2,l,mid,pos,val);
+    else    upd(id*2+1,mid+1,r,pos,val);
+    st[id]=max(st[id*2],st[id*2+1]);
+}
+int get(int id,int l,int r,int u,int v)
+{
+    if(v<l||r<u)    return 0;
+    else    if(u<=l&&r<=v)  return st[id];
+    int mid=(l+r)/2;
+    return max(get(id*2,l,mid,u,v),get(id*2+1,mid+1,r,u,v));
+}
 void solve() {
     cin>>n;
-    unordered_map<int,int>mp;
-    for(int i=1;i<=n;i++)   cin>>a[i],mp[a[i]]++;
-    int ans=0;
-    for(auto x:mp)  ans+=x.second*(x.second-1)/2;
-    cout<<ans;
+    for(int i=1;i<=n;i++)   cin>>h[i];
+    for(int i=1;i<=n;i++)   cin>>a[i];
+    for(int i=1;i<=n;i++)
+    {
+        int newcost=a[i]+get(1,1,n,1,h[i]-1);
+        dp[i]=newcost;
+        upd(1,1,n,h[i],dp[i]);
+    }
+    cout<<*max_element(dp+1,dp+n+1);
 }
 dailamsiu() {
     if (fopen(task".inp", "r")) { freopen(task".inp", "r", stdin); freopen(task".out", "w", stdout); }

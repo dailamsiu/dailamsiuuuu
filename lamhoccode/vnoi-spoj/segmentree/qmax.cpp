@@ -18,38 +18,52 @@ mt19937 rd(chrono::steady_clock::now().time_since_epoch().count());
 int rand(int l, int r) { assert(l <= r); return uniform_int_distribution<int>(l, r)(rd); }
 const int N = 1e6 + 5;
 const int mod = 1e9+7;
-int n,k,a[N],st[4*N],dp[N];
-void upd(int id,int l ,int r,int pos,int val)
+int n,m,p,st[4*N],lazy[4*N];
+void push(int id)
 {
-    if(l==r)
+    if(lazy[id])
     {
-        st[id]=val;return;
+        st[id*2]+=lazy[id];
+        st[id*2+1]+=lazy[id];
+        lazy[id*2]+=lazy[id];
+        lazy[id*2+1]+=lazy[id];
+        lazy[id]=0;
     }
+}
+void upd(int id,int l,int r,int u,int v,int val)
+{
+    if(v<l||r<u)    return;
+    else if(u<=l&&r<=v)
+    {
+        st[id]+=val;lazy[id]+=val;return;
+    }
+    push(id);
     int mid=(l+r)/2;
-    if(pos<=mid)    upd(id*2,l,mid,pos,val);
-    else    upd(id*2+1,mid+1,r,pos,val);
+    upd(id*2,l,mid,u,v,val);
+    upd(id*2+1,mid+1,r,u,v,val);
     st[id]=max(st[id*2],st[id*2+1]);
 }
 int get(int id,int l,int r,int u,int v)
 {
-    if(v<l||r<u)    return 0;
+    if(v<l||r<u)    return -1e18;
     else if(u<=l&&r<=v) return st[id];
+    push(id);
     int mid=(l+r)/2;
     return max(get(id*2,l,mid,u,v),get(id*2+1,mid+1,r,u,v));
 }
 void solve() {
-    cin>>n>>k;
-    for(int i=1;i<=n;i++)
+    cin>>n>>m;
+    while(m--)
     {
-        cin>>a[i];
+        int u,v,k;cin>>u>>v>>k;
+        upd(1,1,n,u,v,k);
     }
-    for(int i=1;i<=n;i++)
+    cin>>p;
+    while(p--)
     {
-        int premax=get(1,1,n,a[i]-k,a[i]+k);
-        dp[i]=1+premax;
-        upd(1,1,n,i,dp[i]);
+        int u,v;cin>>u>>v;
+        cout<<get(1,1,n,u,v)<<'\n';
     }
-    
 }
 dailamsiu() {
     if (fopen(task".inp", "r")) { freopen(task".inp", "r", stdin); freopen(task".out", "w", stdout); }

@@ -18,14 +18,35 @@ mt19937 rd(chrono::steady_clock::now().time_since_epoch().count());
 int rand(int l, int r) { assert(l <= r); return uniform_int_distribution<int>(l, r)(rd); }
 const int N = 1e6 + 5;
 const int mod = 1e9+7;
-int n,a[N];
+string s;
 void solve() {
-    cin>>n;
-    unordered_map<int,int>mp;
-    for(int i=1;i<=n;i++)   cin>>a[i],mp[a[i]]++;
-    int ans=0;
-    for(auto x:mp)  ans+=x.second*(x.second-1)/2;
-    cout<<ans;
+    priority_queue<int>q;
+    while(cin>>s)
+    {
+        if(s[0]=='-')  
+        {
+            if(!q.empty())
+            {
+                q.pop();
+            }
+        }
+        else
+        {
+            int d=0;
+            for(int i=1;i<s.size();i++)
+            {
+                d=d*10+s[i]-48;
+            }
+            if(q.size()<15000)
+            {
+                q.push(d);
+            }
+        }
+    }
+    while(!q.empty())
+    {
+        cout<<q.top()<<'\n';q.pop();
+    }
 }
 dailamsiu() {
     if (fopen(task".inp", "r")) { freopen(task".inp", "r", stdin); freopen(task".out", "w", stdout); }

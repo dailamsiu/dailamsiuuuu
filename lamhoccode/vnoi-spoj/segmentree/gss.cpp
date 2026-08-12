@@ -18,38 +18,51 @@ mt19937 rd(chrono::steady_clock::now().time_since_epoch().count());
 int rand(int l, int r) { assert(l <= r); return uniform_int_distribution<int>(l, r)(rd); }
 const int N = 1e6 + 5;
 const int mod = 1e9+7;
-int n,k,a[N],st[4*N],dp[N];
-void upd(int id,int l ,int r,int pos,int val)
+struct node
+{
+    int pre,suff,tong,ans;
+}st[4*N];
+int n,m,a[N];
+node combine(node left,node right)
+{
+    node res;
+    res.tong=left.tong+right.tong;
+    res.pre=max(left.pre,left.tong+right.pre);
+    res.suff=max(right.suff,left.suff+right.tong);
+    res.ans=max({left.ans,right.ans,left.suff+right.pre});
+    return res;
+}
+void build(int id,int l,int r)
 {
     if(l==r)
     {
-        st[id]=val;return;
+        st[id]={a[l],a[l],a[l],a[l]};
+        return;
     }
     int mid=(l+r)/2;
-    if(pos<=mid)    upd(id*2,l,mid,pos,val);
-    else    upd(id*2+1,mid+1,r,pos,val);
-    st[id]=max(st[id*2],st[id*2+1]);
+    build(id*2,l,mid);
+    build(id*2+1,mid+1,r);
+    st[id]=combine(st[id*2],st[id*2+1]);
 }
-int get(int id,int l,int r,int u,int v)
+node get(int id,int l,int r,int u,int v)
 {
-    if(v<l||r<u)    return 0;
+    if(v<l||r<u)    return {(int)-1e18,(int)-1e18,0,(int)-1e18};
     else if(u<=l&&r<=v) return st[id];
     int mid=(l+r)/2;
-    return max(get(id*2,l,mid,u,v),get(id*2+1,mid+1,r,u,v));
+    node left=get(id*2,l,mid,u,v);
+    node right=get(id*2+1,mid+1,r,u,v);
+    return combine(left,right);
 }
 void solve() {
-    cin>>n>>k;
-    for(int i=1;i<=n;i++)
+    cin>>n;
+    for(int i=1;i<=n;i++)   cin>>a[i];
+    build(1,1,n);
+    cin>>m;
+    while(m--)
     {
-        cin>>a[i];
+        int u,v;cin>>u>>v;
+        cout<<get(1,1,n,u,v).ans<<'\n';
     }
-    for(int i=1;i<=n;i++)
-    {
-        int premax=get(1,1,n,a[i]-k,a[i]+k);
-        dp[i]=1+premax;
-        upd(1,1,n,i,dp[i]);
-    }
-    
 }
 dailamsiu() {
     if (fopen(task".inp", "r")) { freopen(task".inp", "r", stdin); freopen(task".out", "w", stdout); }
