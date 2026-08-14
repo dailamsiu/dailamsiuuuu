@@ -16,37 +16,46 @@
 using namespace std;
 mt19937 rd(chrono::steady_clock::now().time_since_epoch().count());
 int rand(int l, int r) { assert(l <= r); return uniform_int_distribution<int>(l, r)(rd); }
-const int N = 2e6 + 5;
+const int N = 1e6 + 5;
 const int mod = 1e9+7;
-int snt[N];
-void sang()
-{
-    snt[0]=snt[1]=1;
-    for(int i=2;i*i<N;i++)
-    {
-        if(!snt[i]) for(int j=i*i;j<N;j+=i) snt[j]=1;
-    }
-}
-int s[N];
-void sa()
-{
-    for(int i=1;i<=N;i++)
-    {
-        for(int j=i;j<=N;j+=i)
-        {
-            s[j]++;
-        }
-    }
-}
+int n,a[N],l[N],r[N],ans[N];
 void solve() {
-    sang();sa();
-    int a,b,d=0;cin>>a>>b;
-    for(int i=a;i<=b;i++)
+    cin>>n;
+    for(int i=1;i<=n;i++)
     {
-        if(!snt[s[i]])   d++;
+        cin>>a[i];
+        l[i]=0;r[i]=n+1;
     }
-    cout<<d;
-    
+    stack<int>stl;
+    for(int i=n;i>=1;i--)
+    {
+        while(!stl.empty()&&a[stl.top()]>a[i])
+        {
+            l[stl.top()]=i;stl.pop();
+        }
+        stl.push(i);
+    }
+    stack<int>str;
+    for(int i=1;i<=n;i++)
+    {
+        while(!str.empty()&&a[str.top()]>a[i])
+        {
+            r[str.top()]=i;str.pop();
+        }
+        str.push(i);
+    }
+    for(int i=1;i<=n;i++)
+    {
+        ans[r[i]-l[i]-1]=max(ans[r[i]-l[i]-1],a[i]);
+    }
+    for(int i=n;i>=1;i--)
+    {
+        ans[i]=max(ans[i],ans[i+1]);
+    }
+    for(int i=1;i<=n;i++)
+    {
+        cout<<ans[i]<<' ';
+    }
 }
 dailamsiu() {
     if (fopen(task".inp", "r")) { freopen(task".inp", "r", stdin); freopen(task".out", "w", stdout); }
