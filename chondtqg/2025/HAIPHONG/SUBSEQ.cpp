@@ -16,22 +16,28 @@
 using namespace std;
 mt19937 rd(chrono::steady_clock::now().time_since_epoch().count());
 int rand(int l, int r) { assert(l <= r); return uniform_int_distribution<int>(l, r)(rd); }
-const int N = 1e6 + 5;
+const int N = 5e3 + 5;
 const int mod = 1e9+7;
-int n,a[N];
+int n,a[N],b[N],dp[N][N];
 void solve() {
     cin>>n;
-    queue<int>q;
-    unordered_map<int,int>mp;
-    for(int i=1;i<=n;i++)
+    for(int i=1;i<=n;i++)   cin>>a[i];
+    for(int i=1;i<=n;i++)   cin>>b[i];
+    for(int i=1;i<=n;i++)   dp[i][i]=a[i]*b[i];
+    for(int i=1;i<n;i++)
     {
-        cin>>a[i];
-        mp[a[i]]++;
-    }
-    for(auto x:mp)  
+        dp[i][i+1]=a[i]*b[i+1]+a[i+1]*b[i];
+    }int ans=-1e18;
+    for(int l=3;l<=n;l++)
     {
-        if(x.second==1) cout<<x.first<<'\n';
+        for(int i=1;i<=n-l+1;i++)
+        {
+            int j=i+l-1;
+            dp[i][j]=dp[i+1][j-1]+a[i]*b[j]+a[j]*b[i];
+            ans=max(ans,dp[i][j]);
+        }
     }
+    cout<<ans;
 }
 dailamsiu() {
     if (fopen(task".inp", "r")) { freopen(task".inp", "r", stdin); freopen(task".out", "w", stdout); }
