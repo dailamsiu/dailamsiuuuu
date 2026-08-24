@@ -33,7 +33,24 @@ void solve() {
     {
         cout<<"-1";return;
     }
-    
+    vector<pii>x;
+    if(pos1.size()>1)
+    for(int i=0;i<pos1.size()-1;i+=2)
+    {
+        x.push_back({pos1[i],pos1[i+1]});
+    }
+    if(pos2.size()>1)
+    for(int i=0;i<pos2.size()-1;i+=2)
+    {
+        x.push_back({pos2[i],pos2[i+1]});
+    }
+    if(pos2.size()&1)
+    {
+        x.push_back({pos1[pos1.size()-1],pos1[pos1.size()-1]});
+        x.push_back({pos1[pos1.size()-1],pos2[pos2.size()-1]});
+    }
+    cout<<x.size()<<'\n';
+    for(auto p:x)   cout<<p.first<<' '<<p.second<<'\n';
 }
 dailamsiu() {
     if (fopen(task".inp", "r")) { freopen(task".inp", "r", stdin); freopen(task".out", "w", stdout); }
