@@ -1,1 +1,0 @@
-{"name":"Local: STSYS","url":"c:\\hellook\\dailamsiuuuu\\dailamsiuuuu\\chondtqg\\2025\\DONGTHAP\\STSYS.cpp","tests":[{"id":1787216574310,"input":"4 4\n2 1 3 5\n2 1 2\n2 2 4\n1 1 5\n2 1 3","output":""}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"c:\\hellook\\dailamsiuuuu\\dailamsiuuuu\\chondtqg\\2025\\DONGTHAP\\STSYS.cpp","group":"local","local":true}
